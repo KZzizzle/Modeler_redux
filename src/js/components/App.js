@@ -1,0 +1,87 @@
+import React from 'react';
+import './App.css';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
+import Window from './window/Window';
+import SampleTree from './tree/SampleTree';
+import RemoteRender from './modeler/RemoteRender';
+
+import ToolMenu from './tool/ToolMenu';
+import GlobalToolMenu from "./globaltools/GlobalToolMenu"
+import List from "./List";
+
+
+// const App = () => (
+//   <>
+//     <div>
+//       <h2>Articles</h2>
+//       <List />
+//     </div>
+   
+//   </>
+// );
+
+// export default App;
+
+
+//==================================================================
+
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: {
+        palette: {
+          type: 'dark'
+        }
+      }
+    }
+  }
+  render() {
+
+    return (
+      <ThemeProvider theme={createMuiTheme(this.state.theme)}>
+        <CssBaseline />
+        {/* Full screen modeler */}
+        <RemoteRender />
+        {/* Top buttons (tools) */}
+        <ToolMenu className="tool-menu" />
+        {/* Top right corner (dark theme) */}
+        <GlobalToolMenu/>
+        {/* <Box className="dark-mode-toggle-container">
+          <Tooltip title="Toggle dark mode on/off">
+            <IconButton onClick={this.toggleDarkMode}>
+              {this.state.theme.palette.type === 'dark' ? (
+                <Brightness7 />
+              ) : (
+                <Brightness4 />
+              )}
+            </IconButton> 
+          </Tooltip>
+        </Box> */}
+        {/* Tree */}
+        <Window title="Tree" rndConfig={{ default: { width: 200, height: 200, x: 10, y: 10 } }}>
+          <SampleTree />
+        </Window>
+      </ThemeProvider>
+    );
+  }
+  // toggleDarkMode = () => {
+
+
+  //   this.props.toggleTheme(state.theme.palette.type === 'dark' ? 'light' : 'dark');
+  //   this.setState(state => ({
+  //     theme: {
+  //       palette: {
+  //         type: state.theme.palette.type === 'dark' ? 'light' : 'dark'
+  //       }
+  //     }
+  //   }))
+  // }
+}
+
+
+export default App;
