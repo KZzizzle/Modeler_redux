@@ -1,9 +1,10 @@
 import { CHANGE_LANG, TOGGLE_THEME } from "../constants/action-types";
-const initialState = {
+
+export const initialState = {
   language: "FR", 
   theme: {
     palette: {
-      type: 'dark'
+      type: 'light'
     }
   }
 };

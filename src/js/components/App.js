@@ -9,41 +9,25 @@ import RemoteRender from './modeler/RemoteRender';
 
 import ToolMenu from './tool/ToolMenu';
 import GlobalToolMenu from "./globaltools/GlobalToolMenu"
-import List from "./List";
 
-
-// const App = () => (
-//   <>
-//     <div>
-//       <h2>Articles</h2>
-//       <List />
-//     </div>
-   
-//   </>
-// );
-
-// export default App;
-
-
-//==================================================================
-
+import { connect } from "react-redux";
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+  }
+  render() {
+    
+    const thistheme = {
       theme: {
         palette: {
-          type: 'dark'
+          type: this.props.themeType
         }
       }
     }
-  }
-  render() {
-
     return (
-      <ThemeProvider theme={createMuiTheme(this.state.theme)}>
+      <ThemeProvider theme={createMuiTheme(thistheme.theme)}>
         <CssBaseline />
         {/* Full screen modeler */}
         <RemoteRender />
@@ -51,37 +35,20 @@ class App extends React.Component {
         <ToolMenu className="tool-menu" />
         {/* Top right corner (dark theme) */}
         <GlobalToolMenu/>
-        {/* <Box className="dark-mode-toggle-container">
-          <Tooltip title="Toggle dark mode on/off">
-            <IconButton onClick={this.toggleDarkMode}>
-              {this.state.theme.palette.type === 'dark' ? (
-                <Brightness7 />
-              ) : (
-                <Brightness4 />
-              )}
-            </IconButton> 
-          </Tooltip>
-        </Box> */}
         {/* Tree */}
         <Window title="Tree" rndConfig={{ default: { width: 200, height: 200, x: 10, y: 10 } }}>
           <SampleTree />
         </Window>
+        
       </ThemeProvider>
     );
   }
-  // toggleDarkMode = () => {
-
-
-  //   this.props.toggleTheme(state.theme.palette.type === 'dark' ? 'light' : 'dark');
-  //   this.setState(state => ({
-  //     theme: {
-  //       palette: {
-  //         type: state.theme.palette.type === 'dark' ? 'light' : 'dark'
-  //       }
-  //     }
-  //   }))
-  // }
 }
 
+const mapStateToProps = state => {
+  return {
+    themeType: state.theme.palette.type
+  };
+}
 
-export default App;
+export default connect(mapStateToProps)(App);

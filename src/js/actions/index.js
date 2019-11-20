@@ -4,6 +4,6 @@ export function changeLang(payload) {
     return { type: CHANGE_LANG, payload }
   };
 
-export function toggleTheme(payload) {
-  return { type: TOGGLE_THEME, payload}
+export function toggleTheme() {
+  return { type: TOGGLE_THEME}
 }

@@ -1,26 +1,26 @@
 // src/js/components/Form.jsx
-import React, { Component, useState} from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { changeLang, toggleTheme } from "../../actions/index";
 import { IconButton, Box, Tooltip } from '@material-ui/core';
 import { Brightness7, Brightness4 } from '@material-ui/icons';
 
-function mapDispatchToProps(dispatch) {
-  return {
+const mapDispatchToProps = dispatch => ({
     changeLang: lang => dispatch(changeLang(lang)),
-    toggleTheme: theme => dispatch(toggleTheme(theme))
-  };
+    toggleTheme: () => dispatch(toggleTheme())
+});
+
+const mapStateToProps = state => {
+    return {theme: state.theme.palette.type };
 }
 
-function GlobalTools() {
-
-    const [lang, setlang] = useState("FR");
-
+function GlobalToolMenu({theme, toggleTheme}) {
+    
     return (
         <Box className="dark-mode-toggle-container">
           <Tooltip title="Toggle dark mode on/off">
             <IconButton onClick={toggleTheme}>
-              {this.state.theme.palette.type === 'dark' ? (
+              {theme === 'dark' ? (
                 <Brightness7 />
               ) : (
                 <Brightness4 />
@@ -33,14 +33,13 @@ function GlobalTools() {
 
 
 
-
-
-const GlobalToolMenu = connect(
-    null,
-    mapDispatchToProps
-  )(GlobalTools);
+// const GlobalToolMenu = connect(
+//     null,
+//     mapDispatchToProps, 
+//     mapStateToProps
+//   )(GlobalTools);
   
-export default GlobalToolMenu;
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalToolMenu);
 
 // class ConnectedForm extends Component {
 //   constructor(props) {
